@@ -9,6 +9,6 @@ import com.epam.lab1.Controller.Generator;
  */
 public class Main {
     public static void main(String[] args) {
-        new Generator().start();
+        new Generator().go();
     }
 }

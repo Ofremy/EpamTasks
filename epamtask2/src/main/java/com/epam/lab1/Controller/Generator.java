@@ -18,7 +18,7 @@ import static com.epam.lab1.Model.BookData.*;
 public class Generator {
     private Book[] book = new Book[10];
 
-    public void start() {
+    public void go() {
         do {
             if (Book.countOfBooks < 1) {
                 ConsoleViewer.showRequestToAddNewBook();
@@ -102,7 +102,7 @@ public class Generator {
     }
 
     public Book[] getBook() {
-        return book;
+        return trimBookToSize();
     }
 
     public void setBook(Book[] book) {
@@ -110,7 +110,7 @@ public class Generator {
         Book.countOfBooks = book.length;
     }
 
-    public Book[] trimBookToSize() {
+    private Book[] trimBookToSize() {
         int length = Book.countOfBooks;
         this.book = Arrays.copyOf(this.book, length);
         return this.book;

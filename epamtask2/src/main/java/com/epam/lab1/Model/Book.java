@@ -6,7 +6,6 @@ package com.epam.lab1.Model;
  * Java Version 1.8}.
  */
 public class Book {
-    public static int countOfBooks;
     private String name;
     private String author;
     private String publishingHouse;
@@ -14,8 +13,8 @@ public class Book {
     private int numberOfPages;
     private double price;
 
-    public Book(){
-        countOfBooks++;
+    public Book() {
+
     }
 
     public Book(String name, String author, String publishingHouse, int year, int numberOfPages, double price) {
@@ -25,7 +24,6 @@ public class Book {
         this.year = year;
         this.numberOfPages = numberOfPages;
         this.price = price;
-        countOfBooks++;
     }
 
     public String getName() {

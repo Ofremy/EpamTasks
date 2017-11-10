@@ -1,6 +1,6 @@
 package com.epam.lab1;
 
-import com.epam.lab1.Controller.Generator;
+import com.epam.lab1.Controller.Controll;
 
 /**
  * Created by Orest
@@ -9,6 +9,6 @@ import com.epam.lab1.Controller.Generator;
  */
 public class Main {
     public static void main(String[] args) {
-        new Generator().go();
+        new Controll().go();
     }
 }

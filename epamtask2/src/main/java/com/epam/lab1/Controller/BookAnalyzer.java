@@ -3,6 +3,7 @@ package com.epam.lab1.Controller;
 import com.epam.lab1.Model.Book;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Created by Orest
@@ -14,7 +15,7 @@ public class BookAnalyzer {
         if (books == null) return null;
         Book[] resultBook = new Book[books.length];
         int count = 0;
-        for (int i = 0; i < Book.countOfBooks; i++) {
+        for (int i = 0; i < books.length; i++) {
             if (books[i].getAuthor().equals(author)) {
                 resultBook[count++] = books[i];
             }
@@ -27,7 +28,7 @@ public class BookAnalyzer {
         if (books == null) return null;
         Book[] resultBook = new Book[books.length];
         int count = 0;
-        for (int i = 0; i < Book.countOfBooks; i++) {
+        for (int i = 0; i < books.length; i++) {
             if (books[i].getPublishingHouse().equals(publishingHouse)) {
                 resultBook[count++] = books[i];
             }
@@ -40,7 +41,7 @@ public class BookAnalyzer {
         if (books == null) return null;
         Book[] resultBook = new Book[books.length];
         int count = 0;
-        for (int i = 0; i < Book.countOfBooks; i++) {
+        for (int i = 0; i < books.length; i++) {
             if (books[i].getYear() > year) {
                 resultBook[count++] = books[i];
             }
@@ -50,7 +51,12 @@ public class BookAnalyzer {
     }
 
     static void sortBooksByPublishingHouse(Book[] books) {
-        Arrays.sort(books,new BookPublishingHouseComparator());
+        Arrays.sort(books, new Comparator<Book>() {
+            @Override
+            public int compare(Book book, Book t1) {
+                return book.getPublishingHouse().compareToIgnoreCase(t1.getPublishingHouse());
+            }
+        });
 
     }
 }

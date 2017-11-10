@@ -8,23 +8,23 @@ import com.epam.lab1.Model.Book;
  * Java Version 1.8}.
  */
 public class ConsoleViewer {
-    public static void printMessage(String message) {
+    public void printMessage(String message) {
         System.out.println(message);
     }
 
-    public static void showException(Exception e) {
+    public void showException(Exception e) {
         System.out.println(e.getMessage());
     }
 
-    public static void showExitKey(){
+    public void showExitKey(){
         System.out.println("Что бы закончить работу с программой введите 0");
     }
 
-    public static void showRequestToAddNewBook() {
-        System.out.println("Что бы добавить книгу, введите 1");
+    public void showRequestToAddNewBook() {
+        System.out.println("Что бы добавить книги, введите 1");
     }
 
-    public static void showTasks() {
+    public void showTasks() {
         System.out.println("Что бы получить список книг указанного автора введите 2");
         System.out.println("Что бы получить список книг, которые изданые указанным издательством введите 3");
         System.out.println("Что бы получить список книг, изданых позже указанного года введите 4");
@@ -32,7 +32,7 @@ public class ConsoleViewer {
         System.out.println("");
     }
 
-    public static void printBooks(Book[] array) {
+    public void printBooks(Book[] array) {
         if (array == null) {
             System.out.println("Книг не существует");
             return;

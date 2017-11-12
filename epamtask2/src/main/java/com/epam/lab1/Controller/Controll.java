@@ -64,19 +64,19 @@ public class Controll {
                     books = Generator.generateBooksArray(BOOKS_COUNT);
                     break;
                 case 2:
-                    consoleViewer.printBooks(BookAnalyzer
+                    consoleViewer.printBooks(Generator
                             .getBooksByAuthor(books, AUTHORS_ARRAY[(int) (Math.random() * AUTHORS_ARRAY.length)]));
                     break;
                 case 3:
-                    consoleViewer.printBooks(BookAnalyzer
+                    consoleViewer.printBooks(Generator
                             .getBooksByPublishingHouse(books, PUBLISHING_HOUSE_ARRAY[(int) (Math.random() * PUBLISHING_HOUSE_ARRAY.length)]));
                     break;
                 case 4:
-                    consoleViewer.printBooks(BookAnalyzer
+                    consoleViewer.printBooks(Generator
                             .getOlderBooks(books, YEARS_ARRAY[(int) (Math.random() * YEARS_ARRAY.length)]));
                     break;
                 case 5:
-                    BookAnalyzer.sortBooksByPublishingHouse(books);
+                    Generator.sortBooksByPublishingHouse(books);
                     consoleViewer.printBooks(books);
                     break;
                 default:

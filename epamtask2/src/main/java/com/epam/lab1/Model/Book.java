@@ -1,11 +1,13 @@
 package com.epam.lab1.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Orest
  * 09.11.2017
  * Java Version 1.8}.
  */
-public class Book {
+public class Book implements Serializable{
     private String name;
     private String author;
     private String publishingHouse;

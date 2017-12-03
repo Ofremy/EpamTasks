@@ -1,12 +1,18 @@
 package com.epam.lab1.Controller;
 
-import com.epam.lab1.Model.Book;
+import com.epam.lab1.Model.BookCreator;
+import com.epam.lab1.Service.Generator;
+import com.epam.lab1.Service.ObjectIO;
 import com.epam.lab1.View.ConsoleViewer;
-import static com.epam.lab1.Controller.Generator.*;
+import org.apache.log4j.Logger;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+
+import static com.epam.lab1.Service.Generator.*;
 
 /**
  * Created by Orest
@@ -14,46 +20,53 @@ import java.io.InputStreamReader;
  * Java Version 1.8.
  */
 public class Controll {
-    private final static int BOOKS_COUNT = 15;
-    private ConsoleViewer consoleViewer = new ConsoleViewer();
-    private Book[] books;
+    private ConsoleViewer consoleViewer;
+    private BookCreator repository = BookCreator.INSTANCE;
+    private static final Logger logger = Logger.getLogger(Controll.class);
 
-    public void go() {
+    public Controll(ConsoleViewer consoleViewer) {
+        this.consoleViewer = consoleViewer;
+    }
+
+
+    public void go() throws IOException{
         do {
-            if (books == null) {
+            logger.debug("start program");
+            if (repository.getBookList().size() == 0) {
                 consoleViewer.showRequestToAddNewBook();
+                consoleViewer.showExitKey();
+                parseInputData(getInputNumber());
             } else {
                 consoleViewer.showRequestToAddNewBook();
                 consoleViewer.showTasks();
+                consoleViewer.showExitKey();
+                try {
+                    this.parseInputData(getInputNumber());
+                } catch (IOException e) {
+                    logger.error(e);
+                    consoleViewer.showException(e);
+                }
             }
-            consoleViewer.showExitKey();
-            this.checkInputData();
-            consoleViewer.printBooks(books);
         } while (true);
     }
 
-    private void checkInputData() {
+    private int getInputNumber() throws IOException{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            int inputNumber = Integer.parseInt(reader.readLine());
-            this.parseInputData(inputNumber);
-        } catch (IOException | NumberFormatException e) {
-            consoleViewer.showException(e);
-        }
-
+        return Integer.parseInt(reader.readLine());
     }
 
     private void parseInputData(int number) {
-        if (books == null) {
+        if (repository.getBookList().size() == 0) {
             switch (number) {
                 case 0:
                     System.exit(0);
                     break;
                 case 1:
-                    books = Generator.generateBooksArray(BOOKS_COUNT);
+                    logger.info("10 books create");
+                    Generator.generateBooksArray(repository,10);
                     break;
                 default:
-                    consoleViewer.printMessage("Not Illegal Number");
+                    consoleViewer.showError();
             }
         } else {
             switch (number) {
@@ -61,26 +74,36 @@ public class Controll {
                     System.exit(0);
                     break;
                 case 1:
-                    books = Generator.generateBooksArray(BOOKS_COUNT);
+                    logger.info("10 books create");
+                    Generator.generateBooksArray(repository,10);
                     break;
                 case 2:
                     consoleViewer.printBooks(Generator
-                            .getBooksByAuthor(books, AUTHORS_ARRAY[(int) (Math.random() * AUTHORS_ARRAY.length)]));
+                            .getBooksByAuthor(repository.getBookList(), AUTHORS_ARRAY[(int) (Math.random() * AUTHORS_ARRAY.length)]));
                     break;
                 case 3:
                     consoleViewer.printBooks(Generator
-                            .getBooksByPublishingHouse(books, PUBLISHING_HOUSE_ARRAY[(int) (Math.random() * PUBLISHING_HOUSE_ARRAY.length)]));
+                            .getBooksByPublishingHouse(repository.getBookList(), PUBLISHING_HOUSE_ARRAY[(int) (Math.random() * PUBLISHING_HOUSE_ARRAY.length)]));
                     break;
                 case 4:
                     consoleViewer.printBooks(Generator
-                            .getOlderBooks(books, YEARS_ARRAY[(int) (Math.random() * YEARS_ARRAY.length)]));
+                            .getOlderBooks(repository.getBookList(), YEARS_ARRAY[(int) (Math.random() * YEARS_ARRAY.length)]));
                     break;
                 case 5:
-                    Generator.sortBooksByPublishingHouse(books);
-                    consoleViewer.printBooks(books);
+                    Generator.sortBooksByPublishingHouse(repository.getBookList());
+                    consoleViewer.printBooks(repository.getBookList());
+                    break;
+                case 6:
+                    consoleViewer.printBooks(repository.getBookList());
+                    break;
+                case 7:
+                    ObjectIO.saveObj(repository.getBookList(),"D:/1.txt");
+                    break;
+                case 8:
+                    repository.addAll((List)ObjectIO.readObj("D:/1.txt"));
                     break;
                 default:
-                    consoleViewer.printMessage("Not Illegal number");
+                    consoleViewer.showMessage("Not Illegal number");
                     break;
             }
         }

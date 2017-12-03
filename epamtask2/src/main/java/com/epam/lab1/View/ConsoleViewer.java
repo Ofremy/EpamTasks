@@ -2,17 +2,23 @@ package com.epam.lab1.View;
 
 import com.epam.lab1.Model.Book;
 
+import java.util.List;
+
 /**
  * Created by Orest
  * 09.11.2017
  * Java Version 1.8}.
  */
 public class ConsoleViewer {
-    public void printMessage(String message) {
+    public void showMessage(String message) {
         System.out.println(message);
     }
 
-    public void showException(Exception e) {
+    public void showError() {
+        System.out.println("Что-то пошло не так");
+    }
+
+    public void showException(Exception e){
         System.out.println(e.getMessage());
     }
 
@@ -29,15 +35,18 @@ public class ConsoleViewer {
         System.out.println("Что бы получить список книг, которые изданые указанным издательством введите 3");
         System.out.println("Что бы получить список книг, изданых позже указанного года введите 4");
         System.out.println("Что бы упорядочить книги по издательствам введите 5");
+        System.out.println("Что бы увидеть книги введите 6");
+        System.out.println("Что бы сохранить объекты введите 7");
+        System.out.println("Что бы получить объекты введите 8");
         System.out.println("");
     }
 
-    public void printBooks(Book[] array) {
-        if (array == null) {
+    public void printBooks(List<Book> bookList) {
+        if (bookList == null) {
             System.out.println("Книг не существует");
             return;
         }
-        for (Book b : array) {
+        for (Book b : bookList) {
             System.out.println(b);
         }
         System.out.println("");
